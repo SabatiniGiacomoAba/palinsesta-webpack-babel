@@ -15,10 +15,44 @@ const lorem = new LoremIpsum({
   }
 });
 
-
+// menu moving
 var elmnts = document.querySelectorAll('.middle-container > div');
-console.log(elmnts)
+var elmntsLength = elmnts.length
+let menuCounter = 0
 
+var myTimer = setInterval(moveMenus,500)
+
+function moveMenus(){
+  elmnts.forEach(el => {
+    el.style.zIndex = "initial";
+  })
+  elmnts[menuCounter].style.zIndex = "9";
+  if (menuCounter == elmntsLength-1) {
+    menuCounter = 0
+  } else {
+    menuCounter++
+  }
+}
+elmnts.forEach(el => {
+  el.onmouseover = () =>{
+    elmnts.forEach(el => {
+      el.style.zIndex = "0"
+    })
+    el.style.zIndex = "9"
+
+  }
+})
+document.querySelector(".middle-container").onmouseenter= () => {
+  clearInterval(myTimer)
+}
+document.querySelector(".middle-container").onmouseleave= () => {
+  myTimer = setInterval(moveMenus,500)
+}
+
+
+
+
+//interaction
 let counter =0;
 
 
@@ -49,8 +83,8 @@ function showPopups(title,content, link) {
     
     
     document.body.appendChild(popup_container)
-    popup_container.style.top = (Math.random()* window.innerHeight)-popup_container.style.width + "px";
-    popup_container.style.left = (Math.random()* window.innerWidth)-popup_container.style.height + "px";
+    popup_container.style.top = (Math.random()* window.innerHeight)/3 + "px";
+    popup_container.style.left = (Math.random()* window.innerWidth)/3 + "px";
    dragElement(popup_container,counter)
    counter++
 
@@ -63,8 +97,8 @@ function showPopups(title,content, link) {
     video_container.appendChild(iframe)
 
     document.body.appendChild(video_container)
-    video_container.style.top = Math.random()* window.innerHeight/2 + "px";
-    video_container.style.left = Math.random()* window.innerWidth/2 + "px";
+    video_container.style.top = Math.random()* window.innerHeight/3 + "px";
+    video_container.style.left = Math.random()* window.innerWidth/3 + "px";
     //dragElement(video_container)
 
 

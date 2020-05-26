@@ -1,13 +1,28 @@
+@font-face {
+  font-family: 'Ortica';
+  src: 
+        url('../fonts/Ortica-Light.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/Ortica-Light.woff') format('woff') /* Pretty Modern Browsers */
+
+}
+h1 {
+  font-weight: 100;
+}
 .site-title{
-    font-family: 'Times New Roman', Times, serif;
+    font-family: "Ortica", sans-serif;
     font-size: 128px;
     position: absolute;
     bottom: 10px;
     left: 20px;
     margin:0;
+    text-decoration: underline;
+    z-index: 9;
+}
+.site-link:visited{
+  color:#0000EE;
 }
 body {
-    font-family: "Lucida Console";
+    font-family: "Ortica", sans-serif;
 }
 $colors: red, orange, yellow, green, blue, purple;
 
@@ -16,9 +31,11 @@ $colors: red, orange, yellow, green, blue, purple;
         top: $i *25px;
         left: $i *25px;
         position: absolute;
+        //box-shadow: -5px -5px nth($colors, $i);
     }
     .middle-container > div:nth-child:hover(#{length($colors)}n+#{$i}) {
         z-index:9;
+        cursor: pointer;
 	}
 }
 .middle-container {
@@ -38,9 +55,10 @@ $colors: red, orange, yellow, green, blue, purple;
 .pink, .blue, .green {
     position: absolute;
   }
-  .pink:hover,.blue:hover,.green:hover, .albedo:hover{
+  .middle-container > div:hover{
     color:blue;
     z-index:9;
+    cursor: pointer;
   }
   
   .pink {
@@ -71,7 +89,11 @@ $colors: red, orange, yellow, green, blue, purple;
       resize: both;
       z-index: 9;
       background: white;
+      //box-shadow: -5px -5px blue;
 
+  }
+  .popup-window:hover{
+    box-shadow: -5px -5px black;
   }
   .popup-window .title-container {
     border-bottom: 1px solid black;
@@ -97,4 +119,5 @@ $colors: red, orange, yellow, green, blue, purple;
   .video-window iframe {
     width: 100%;
     height: 100%;
+    //box-shadow: -5px -5px blue;
   }
