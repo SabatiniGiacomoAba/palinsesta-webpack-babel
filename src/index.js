@@ -1,6 +1,8 @@
 
 require('normalize.css/normalize.css');
 require('./styles/index.scss');
+var Draggable = require ('Draggable');
+
 
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 
@@ -14,6 +16,8 @@ const lorem = new LoremIpsum({
     min: 4
   }
 });
+
+
 
 // menu moving
 var elmnts = document.querySelectorAll('.middle-container > div');
@@ -49,7 +53,7 @@ document.querySelector(".middle-container").onmouseleave= () => {
   myTimer = setInterval(moveMenus,500)
 }
 
-
+document.querySelector(".colophon-title").onclick = showColophon;
 
 
 //interaction
@@ -58,25 +62,38 @@ let counter =0;
 
 elmnts.forEach(el => {
     el.onclick = () =>{
-        showPopups("ASMR",lorem.generateParagraphs(3),"https://www.youtube.com/embed/P3TG8tq8zj4")
+        showPopups("ASMR","Marco Almonti",lorem.generateParagraphs(3),"https://www.youtube.com/embed/P3TG8tq8zj4")
     }
 })
 
-function showPopups(title,content, link) {
+function showPopups(title,author,content, link) {
+
+  // description 
+
     var popup_container = document.createElement("div")
     popup_container.classList.add("popup-window")
+    popup_container.id = "popup-window-"+counter
     var title_container = document.createElement("div")
     title_container.classList.add("title-container")
     title_container.id = "title-container-"+counter;
-    
     var _title = document.createElement("h1")
+    _title.classList.add("popup-window-title")
     var content_container = document.createElement("div")
     content_container.classList.add("content-container")
     _title.textContent = title
+    var _author = document.createElement("span")
+    _author.textContent = "by " + author
     var _content = document.createElement("p")
     _content.textContent = content
+    content_container.appendChild(_author)
     content_container.appendChild(_content)
     title_container.appendChild(_title)
+    var span = document.createElement("span")
+    span.classList.add("glyphicon")
+    span.classList.add("glyphicon-remove")
+    span.id = counter
+    span.addEventListener("click",closePopupWindow)
+    title_container.append(span)
     popup_container.appendChild(title_container)
     popup_container.appendChild(content_container)
     
@@ -85,69 +102,84 @@ function showPopups(title,content, link) {
     document.body.appendChild(popup_container)
     popup_container.style.top = (Math.random()* window.innerHeight)/3 + "px";
     popup_container.style.left = (Math.random()* window.innerWidth)/3 + "px";
-   dragElement(popup_container,counter)
-   counter++
+    new Draggable (popup_container, {
+      handle: title_container
+    });
+   // video
+
 
     var video_container = document.createElement("div")
     video_container.classList.add("video-window")
-
+    video_container.id = "video-window-"+counter
+    var video_title_container = document.createElement("div")
+    video_title_container.classList.add("video-title-container")
+    video_title_container.id = "video-title-container-"+counter;
+    var video_title = document.createElement("h1")
+    video_title.classList.add("video-window-title")
+    video_title.textContent = title
+    video_title_container.appendChild(video_title)
+    video_container.appendChild(video_title_container)
+    var video_iframe = document.createElement("div")
+    video_iframe.classList.add("video-iframe-container")
     var iframe = document.createElement("iframe");
     iframe.setAttribute("src",link);
-    iframe.setAttribute("autoplay","true")
-    video_container.appendChild(iframe)
+    iframe.setAttribute("autoplay","1")
+    video_iframe.appendChild(iframe)
+
+    video_container.appendChild(video_iframe)
+    
 
     document.body.appendChild(video_container)
     video_container.style.top = Math.random()* window.innerHeight/3 + "px";
     video_container.style.left = Math.random()* window.innerWidth/3 + "px";
-    //dragElement(video_container)
+    //dragElement(video_container,counter)
+    counter++
+    new Draggable (video_container);
 
 
 }
+function closePopupWindow(){
+  const id = this.id
+  document.querySelector("#popup-window-"+id).remove()
+  document.querySelector("#video-window-"+id).remove()
+}
 
-
-
-
-
-function dragElement(elmnt,num) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+function showColophon(){
+  var popup_container = document.createElement("div")
+    popup_container.classList.add("colophon-window")
+    popup_container.id = "colophon-window-"+counter
+    var title_container = document.createElement("div")
+    title_container.classList.add("colophon-title-container")
+    title_container.id = "colophon-title-container-"+counter;
+    var _title = document.createElement("h1")
+    _title.classList.add("colophon-window-title")
+    var content_container = document.createElement("div")
+    content_container.classList.add("colophon-content-container")
+    _title.textContent = "colophon"
+    var _content = document.createElement("p")
+    _content.textContent = "Palinsesta è un format creato dal corso di Visual Motion e Design all'Accademia di Belle Arti di Urbino."
+    content_container.appendChild(_content)
+    title_container.appendChild(_title)
+    var span = document.createElement("span")
+    span.classList.add("glyphicon")
+    span.classList.add("glyphicon-remove")
+    span.id = counter
+    span.addEventListener("click",closeColophon)
+    title_container.append(span)
+    popup_container.appendChild(title_container)
+    popup_container.appendChild(content_container)
     
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById("title-container-"+num)) {
-      // if present, the header is where you move the DIV from:
-      document.getElementById("title-container-"+num).onmousedown = dragMouseDown;
-    } else {
-      // otherwise, move the DIV from anywhere inside the DIV:
-      //elmnt.onmousedown = dragMouseDown;
-    }
     
-  
-    function dragMouseDown(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // get the mouse cursor position at startup:
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      document.onmouseup = closeDragElement;
-      // call a function whenever the cursor moves:
-      document.onmousemove = elementDrag;
-    }
-  
-    function elementDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // calculate the new cursor position:
-      pos1 = pos3 - e.clientX;
-      pos2 = pos4 - e.clientY;
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      // set the element's new position:
-      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-    }
-  
-    function closeDragElement() {
-      // stop moving when mouse button is released:
-      document.onmouseup = null;
-      document.onmousemove = null;
-    }
-  }
+    
+    document.body.appendChild(popup_container)
+    popup_container.style.top = (Math.random()* window.innerHeight)/3 + "px";
+    popup_container.style.left = (Math.random()* window.innerWidth)/3 + "px";
+    new Draggable (popup_container, {
+      handle: title_container
+    });
+}
+function closeColophon(){
+  document.querySelectorAll(".colophon-window").forEach(el => {
+    el.remove()
+  })
+}

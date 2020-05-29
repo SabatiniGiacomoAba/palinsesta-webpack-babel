@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "webpack-dev-server --config webpack.dev.js --mode development",
-        "build": "webpack --config webpack.dev.js --mode production",
+        "build": "webpack --config webpack.dev.js --mode development",
         "preview": "npm run build && http-server dist"
     },
     "repository": {
@@ -21,12 +21,14 @@
     },
     "homepage": "",
     "dependencies": {
+        "draggable": "^4.2.0",
         "jquery": "^3.5.1",
         "jquery-ui": "^1.12.1",
         "jsdom": "^16.2.2",
         "lorem-ipsum": "^2.0.3",
         "normalize.css": "^8.0.0",
         "resizable": "^1.2.1",
+        "smarquee": "^1.0.5",
         "youtube-random-video": "^1.0.5"
     },
     "devDependencies": {
