@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Ortica';
-  src: 
+  src:
         url('../fonts/Ortica-Light.woff2') format('woff2'), /* Super Modern Browsers */
        url('../fonts/Ortica-Light.woff') format('woff') /* Pretty Modern Browsers */
 
@@ -52,6 +52,7 @@ h1 {
 }
 body {
     font-family: "Times New Roman";
+    overflow:hidden;
 }
 $colors: red, orange, yellow, green, blue, purple;
 
@@ -68,6 +69,7 @@ $colors: red, orange, yellow, green, blue, purple;
 	}
 }
 .middle-container {
+    top:45px;
     position: absolute;
     z-index: 99;
     width:50%;
@@ -89,17 +91,17 @@ $colors: red, orange, yellow, green, blue, purple;
     z-index:9;
     cursor: pointer;
   }
-  
+
   .pink {
     background-image: url("https://i.ytimg.com/vi/829LH7AmT6A/maxresdefault.jpg");
     background-size: cover;
   }
-  
+
   .blue {
     background-image: url("https://www.corriere.it/methode_image/2018/09/10/Tecnologia/Foto%20Tecnologia%20-%20Trattate/B1%20-%20Silvia%20Bottini%20A-knoD-U302011327322830lG-593x443@Corriere-Web-Sezioni.jpg");
     background-size: cover;
   }
-  
+
   .green {
     background-image: url("https://i.ytimg.com/vi/n-XPRr1GTQg/maxresdefault.jpg");
     background-size: cover;
@@ -111,7 +113,7 @@ $colors: red, orange, yellow, green, blue, purple;
     .popup-window::-webkit-scrollbar {
       display: none;
     }
-  
+
   .popup-window{
       width: 400px;
       height: 400px;
@@ -151,10 +153,10 @@ $colors: red, orange, yellow, green, blue, purple;
     top: 5px;
     font-size: 54px;
   }
-  
+
 
   .popup-window .content-container {
-    height: 100%;
+      height: 81%;
       margin-top: 15%;
       padding: 20px;
       overflow-y: scroll;
@@ -171,17 +173,17 @@ $colors: red, orange, yellow, green, blue, purple;
   }
   .video-window {
     z-index: 1;
+    width: 640px;
+    height: 480px;
       position: absolute;
-      width: 640px;
-      height: 480px;
       border: 1px solid blue;
-  }
+}
   .video-window .video-title-container {
     border-bottom: 1px solid blue;
     background: blue;
     z-index: 999;
     cursor: move;
-    position: absolute;
+    position: relative;
     width: 100%;
     padding: 10px;
   }
@@ -190,15 +192,31 @@ $colors: red, orange, yellow, green, blue, purple;
     margin: 0;
     color: white;
   }
+  .video-window .video-title-container span:hover {
+    cursor: pointer;
+  }
+  .video-window .video-title-container span {
+    position: absolute;
+    color: white;
+    right: 5px;
+    top: 5px;
+    font-size: 54px;
+  }
+
+
+
   .video-window .video-iframe-container {
-    height: 100%;
+    height: 87.5%;
+    background-color: white;
   }
   .video-window iframe, {
-    position: absolute;
-    height: 80%;
+    position: relative;
+    height: 100%;
     width: 100%;
     bottom: 0;
   }
+
+
 .ytp-title {
   display: none !important;
 }
@@ -238,13 +256,13 @@ $colors: red, orange, yellow, green, blue, purple;
   color: blue;
   right: 5px;
   top: 5px;
-  font-size: 54px;
+  font-size: 45px;
 }
 .colophon-content-container {
-  height: 100%;
-  margin-top: 15%;
+  height: 81%;
+  //margin-top: 15%;
   padding: 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
   font-size:24px;
 }
 .colophon-content-container::-webkit-scrollbar {

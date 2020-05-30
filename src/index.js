@@ -68,7 +68,7 @@ elmnts.forEach(el => {
 
 function showPopups(title,author,content, link) {
 
-  // description 
+  // description
 
     var popup_container = document.createElement("div")
     popup_container.classList.add("popup-window")
@@ -96,9 +96,9 @@ function showPopups(title,author,content, link) {
     title_container.append(span)
     popup_container.appendChild(title_container)
     popup_container.appendChild(content_container)
-    
-    
-    
+
+    counter++
+
     document.body.appendChild(popup_container)
     popup_container.style.top = (Math.random()* window.innerHeight)/3 + "px";
     popup_container.style.left = (Math.random()* window.innerWidth)/3 + "px";
@@ -107,7 +107,7 @@ function showPopups(title,author,content, link) {
     });
    // video
 
-
+// devo provare ad aggiungere il titolo
     var video_container = document.createElement("div")
     video_container.classList.add("video-window")
     video_container.id = "video-window-"+counter
@@ -122,12 +122,18 @@ function showPopups(title,author,content, link) {
     var video_iframe = document.createElement("div")
     video_iframe.classList.add("video-iframe-container")
     var iframe = document.createElement("iframe");
+    var span = document.createElement("span")
+    span.classList.add("glyphicon")
+    span.classList.add("glyphicon-remove")
+    span.id = counter;
+    span.addEventListener("click",closePopupWindow)
+    video_title_container.append(span);
     iframe.setAttribute("src",link);
     iframe.setAttribute("autoplay","1")
     video_iframe.appendChild(iframe)
 
     video_container.appendChild(video_iframe)
-    
+
 
     document.body.appendChild(video_container)
     video_container.style.top = Math.random()* window.innerHeight/3 + "px";
@@ -139,9 +145,18 @@ function showPopups(title,author,content, link) {
 
 }
 function closePopupWindow(){
+  var thisContainer = this.parentNode;
+  var master = thisContainer.parentNode;
+  //alert(master.id);
   const id = this.id
-  document.querySelector("#popup-window-"+id).remove()
-  document.querySelector("#video-window-"+id).remove()
+  if(master.id == "popup-window-"+id)
+  {
+    document.querySelector("#popup-window-"+id).remove()
+  }
+  else if(master.id == "video-window-"+id)
+  {
+    document.querySelector("#video-window-"+id).remove()
+  }
 }
 
 function showColophon(){
@@ -168,9 +183,9 @@ function showColophon(){
     title_container.append(span)
     popup_container.appendChild(title_container)
     popup_container.appendChild(content_container)
-    
-    
-    
+
+
+
     document.body.appendChild(popup_container)
     popup_container.style.top = (Math.random()* window.innerHeight)/3 + "px";
     popup_container.style.left = (Math.random()* window.innerWidth)/3 + "px";
